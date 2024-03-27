@@ -32,11 +32,11 @@ class CompaniesController extends Controller
 
             DB::commit();
 
-            return response()->json(['status' => 'ok']);
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return response()->json(['status' => 'ko', 'error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 

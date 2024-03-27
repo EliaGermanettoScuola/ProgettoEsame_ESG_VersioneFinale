@@ -33,6 +33,8 @@
                 <!--richiamare la route get session info-->
                 <button id="getSessionInfo" class="btn btn-primary">Get Session Info</button>
                 <button id="getSession" class="btn btn-primary">get session</button>
+
+                <a href="/questionario">vai al questionario</a>
             </div>
         </div>
     </div>

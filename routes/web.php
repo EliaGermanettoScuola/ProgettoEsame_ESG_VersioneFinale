@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +25,22 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
-Route::post('/registrazione', [CompaniesController::class, 'registrazione']);
-
-Route::post('/login', [CompaniesController::class, 'login']);
+Route::get('/questionario', function () {
+    //dd('Ciao benvenuto in questionario.blade.php');
+    return view('questionario');
+})->name('questionario');
 
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
 
+#region companies
+Route::post('/registrazione', [CompaniesController::class, 'registrazione']);
+
+Route::post('/login', [CompaniesController::class, 'login']);
+#endregion
+
+#region session
 Route::get('/getSession', [SessionController::class, 'getSession']);
 
 route::post('/createSession', [SessionController::class, 'CreateSession']);
@@ -39,3 +48,12 @@ route::post('/createSession', [SessionController::class, 'CreateSession']);
 route::delete('/destroySession', [SessionController::class, 'destroySession']);
 
 route::get('/getSessionInfo', [SessionController::class, 'getSessionInfo']);
+#endregion
+
+#region questions
+route::get('/getAllQuestions', [QuestionsController::class, 'getAllQuestions']);
+
+route::get('/getQuestion/{id}', [QuestionsController::class, 'getQuestion']);
+
+route::delete('/deleteQuestion/{id}', [QuestionsController::class, 'deleteQuestion']);
+#endregion
