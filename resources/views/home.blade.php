@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/functions.js') }}"></script>
 </head>
 <body>
     <div class="container">
@@ -85,6 +84,41 @@
             });
         });
     });
+
+    function createSession(type, id) {
+    $.ajax({
+        url: '/createSession',
+        method: 'POST',
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            type: type,
+            id: id
+        },
+        success: function(response) {
+            if (response.status == 'success') {
+                console.log('Sessione creata:', response.data);
+            } else {
+                console.log('Errore:', response.message);
+            }
+        }
+    });
+}
+
+function getSession() {
+    $.ajax({
+        url: '/getSession',
+        method: 'GET',
+        success: function(response) {
+            if (response.success) {
+                console.log('Sessione:', response.data.Users);
+            } else {
+                console.log('Errore:', response.message);
+            }
+        }
+    });
+}
 
     
 </script>

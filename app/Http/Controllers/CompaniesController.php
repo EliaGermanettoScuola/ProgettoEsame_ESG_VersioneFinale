@@ -11,6 +11,9 @@ class CompaniesController extends Controller
     function registrazione(Request $request){
         header('Access-Control-Allow-Origin: *');
 
+        if($request->password != $request->password2){
+            return response()->json(['success' => false, 'error' => 'Le password non coincidono']);
+        }
         DB::beginTransaction();
 
         try {
