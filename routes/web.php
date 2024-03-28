@@ -17,27 +17,35 @@ use App\Http\Controllers\QuestionsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/home', function () {
-    //dd('Ciao benvenuto in home.blade.php');
     return view('home');
 })->name('home');
 
-Route::get('/questionario', function () {
-    //dd('Ciao benvenuto in questionario.blade.php');
-    return view('questionario');
-})->name('questionario');
+Route::get('/error', function () {
+    return view('error');
+})->name('error');
+
+Route::get('/loginPage', function () {
+    return view('login');
+})->name('loginPage');
+
+Route::get('/PaginaRegistrazione', function () {
+    return view('registrazione');
+})->name('PaginaRegistrazione');
 
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
 
 #region companies
-Route::post('/registrazione', [CompaniesController::class, 'registrazione']);
+Route::post('/registrazione', [CompaniesController::class, 'registrazione'])->name('registrazione');
 
-Route::post('/login', [CompaniesController::class, 'login']);
+Route::post('/login', [CompaniesController::class, 'login'])->name('login');
+
+route::post('/logout', [CompaniesController::class, 'logout'])->name('logout');
 #endregion
 
 #region session
@@ -51,7 +59,11 @@ route::get('/getSessionInfo', [SessionController::class, 'getSessionInfo']);
 #endregion
 
 #region questions
-route::get('/getAllQuestions', [QuestionsController::class, 'getAllQuestions']);
+
+
+Route::get('/questionario', [QuestionsController::class, 'index'])->name('questionario');
+
+route::get('/getAllQuestions', [QuestionsController::class, 'getAllQuestions'])->name('getAllQuestions');
 
 route::get('/getQuestion/{id}', [QuestionsController::class, 'getQuestion']);
 

@@ -1,61 +1,39 @@
+@extends('layouts.app')
 
-<!--template html usa boostrap-->
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/functions.js') }}"></script>
-</head>
-<body>
+@section('content')
     <div class="container">
         <h1>Questionario</h1>
         <!--creare il questionario prendendo le domande dalle route-->
         <div class="row">
             <div class="col-md-6">
-                <!--form login-->
-                <h2>Questionario</h2>
-                <form id="formQuestionario" action="/questionario">
+                <form id="formQuestionario" >
                     @csrf
+                    @if(isset($error))
+                        <div class="alert alert-danger" role="alert">
+                            {{$error}}
+                        </div>
+                    @endif
+                    @if(isset($questions))
+                        @foreach($questions as $question)
+                            <div class="form-group">
+                                <label>{{$question['domanda']}}</label>
+                                <select class="form-control" name="question_{{$question['id']}}">
+                                    <option value="">Seleziona una risposta</option>
+                                    @foreach($question['risposte'] as $risposta)
+                                        <option value="{{$risposta}}">{{$risposta}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endforeach
+                        <button type="submit" class="btn btn-primary">Invia</button>
+                    @endif
                 </form>
             </div>
         </div>
     </div>
-<body>
+@endsection
 
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            url: '/getAllQuestions',
-            method: 'GET',
-            success: function(response) {
-                console.log(response);
-                if (response.success) {
-                    response.questions.forEach(question => {
-                        $('#formQuestionario').append(`
-                            <div class="form-group">
-                                <label>${question.domanda}</label>
-                                <select class="form-control" name="question_${question.id}">
-                                    <option value="">Seleziona una risposta</option>
-                                    ${question.risposte.map(risposta => `<option value="${risposta}">${risposta}</option>`).join('')}
-                                </select>
-                            </div>
-                        `);
-                    });
-                    $('#formQuestionario').append(`
-                        <button type="submit" class="btn btn-primary">Invia</button>
-                    `);
-                }
-            }
-        });
-    });
-    
-</script>
+
 
 
 

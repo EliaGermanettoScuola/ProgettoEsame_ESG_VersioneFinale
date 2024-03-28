@@ -7,20 +7,25 @@ use Illuminate\Support\Facades\DB;
 
 class QuestionsController extends Controller
 {
+    function index() {
+        try {
+            $questions = $this->getAllQuestions();
+            return view('questionario', ['questions' => $questions]);
+        } catch (\Exception $e) {
+            return view('questionario', ['error' => $e->getMessage()]);
+        }
+    }
+
     function getAllQuestions() {
 
-        try {
-            $questions = DB::table('questions')
-            ->join('demands', 'questions.idDomanda', '=', 'demands.idDomanda')
-            ->join('answers', 'questions.idRisposta', '=', 'answers.idRisposta')
-            ->select('questions.idQuesito', 'demands.Domanda', 'answers.Risposta')
-            ->get();
+        $questions = DB::table('questions')
+        ->join('demands', 'questions.idDomanda', '=', 'demands.idDomanda')
+        ->join('answers', 'questions.idRisposta', '=', 'answers.idRisposta')
+        ->select('questions.idQuesito', 'demands.Domanda', 'answers.Risposta')
+        ->get();
 
-            $questions = $this->mapQuestions($questions)->values();
-            return response()->json(['success' => true, 'questions' => $questions]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => true, 'error' => $e->getMessage()]);
-        }
+        return mapQuestions($questions)->values();
+    }
         
     }
 
@@ -32,7 +37,7 @@ class QuestionsController extends Controller
             ->select('questions.idQuesito', 'demands.Domanda', 'answers.Risposta')
             ->where('demands.idDomanda', $id)
             ->get();
-            $question = $this->mapQuestions($questions)->first();
+            $question = mapQuestions($questions)->first();
             
             return response()->json(['success' => true, 'question' => $question]);
         } catch (\Exception $e) {
@@ -40,7 +45,7 @@ class QuestionsController extends Controller
         }
     }
 
-    private function mapQuestions($questions) {
+    function mapQuestions($questions) {
         $groupedQuestions = $questions->groupBy('Domanda');
 
         return $groupedQuestions->map(function ($group, $question) {
@@ -60,4 +65,4 @@ class QuestionsController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
-}
+
