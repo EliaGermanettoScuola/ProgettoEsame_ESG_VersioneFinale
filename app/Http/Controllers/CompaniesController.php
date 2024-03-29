@@ -89,7 +89,14 @@ class CompaniesController extends Controller
         $sessionRequest = new Request;
         $sessionRequest->replace(['type' => 'Users']);
         $sessionController->destroySession($sessionRequest);
+        
         return view('home', ['message' => 'Logout effettuato con successo']);
+        /*if($request->session()->has('Users')){
+            
+        }else{
+            return view('error', ['error' => 'Non sei loggato']);
+        }*/
+        
     }
 
 }

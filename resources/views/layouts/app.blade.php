@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/function.js"></script>
     <style>
         .navbar-nav {
             flex-wrap: nowrap;
@@ -55,7 +56,7 @@
                     <ul class="navbar-nav">
                         @if(session()->has('Users'))
                             <li class="nav-item">
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="/logout">
                                     @csrf
                                     <button type="submit" class="nav-link"
                                             style="background:none;border:none;padding:0;">Logout
@@ -77,12 +78,17 @@
         @yield('content')
     </main>
 
+
     <footer class="bg-body-tertiary text-center text-lg-start mt-5">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
             © 2024 Copyright:
             <a class="text-body" href="https://www.esgcheckup.it">esgcheckup.it</a>
         </div>
     </footer>
+
+    
 </div>
 </body>
 </html>
+
+

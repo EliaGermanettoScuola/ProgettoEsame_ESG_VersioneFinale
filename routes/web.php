@@ -60,7 +60,6 @@ route::get('/getSessionInfo', [SessionController::class, 'getSessionInfo']);
 
 #region questions
 
-
 Route::get('/questionario', [QuestionsController::class, 'index'])->name('questionario');
 
 route::get('/getAllQuestions', [QuestionsController::class, 'getAllQuestions'])->name('getAllQuestions');
