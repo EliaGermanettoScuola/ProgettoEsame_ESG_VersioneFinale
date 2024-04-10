@@ -27,6 +27,7 @@
         main {
             flex: 1;
         }
+
     </style>
 </head>
 <body>

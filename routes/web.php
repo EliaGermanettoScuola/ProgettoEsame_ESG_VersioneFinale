@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\QuestionnairesController;
+use App\Http\Controllers\AnswerSurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,11 +62,30 @@ route::get('/getSessionInfo', [SessionController::class, 'getSessionInfo']);
 
 #region questions
 
-Route::get('/questionario', [QuestionsController::class, 'index'])->name('questionario');
+Route::get('/questionario', [QuestionsController::class, 'questionario'])->name('questionario');
 
-route::get('/getAllQuestions', [QuestionsController::class, 'getAllQuestions'])->name('getAllQuestions');
+Route::get('/nuovoQuestionario', [QuestionsController::class, 'nuovoQuestionario'])->name('nuovoQuestionario');
 
 route::get('/getQuestion/{id}', [QuestionsController::class, 'getQuestion']);
 
 route::delete('/deleteQuestion/{id}', [QuestionsController::class, 'deleteQuestion']);
+#endregion
+
+#region questionnaires
+
+Route::post('/createSurvey', [QuestionnairesController::class, 'createSurvey'])->name('createSurvey');
+
+Route::get('/getUserSurvey/{id}', [QuestionnairesController::class, 'getUserSurvey'])->name('getUserSurvey');
+
+Route::get('/getSurvey/{id}', [QuestionnairesController::class, 'getSurvey'])->name('getSurvey');
+
+Route::delete('/destroySurvey/{id}', [QuestionnairesController::class, 'destroySurvey'])->name('destroySurvey');
+#endregion
+
+#region answerSurvey
+
+Route::post('/saveAnswer', [AnswerSurveyController::class, 'saveAnswer'])->name('saveAnswer');
+
+Route::get('/calcoloFinale', [AnswerSurveyController::class, 'calcoloFinale'])->name('calcoloFinale');
+
 #endregion

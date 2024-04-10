@@ -20,7 +20,7 @@ class SessionController extends Controller
                 return response()->json(['success' => false, 'message' => 'No data in the session']);
             }
         } catch (\Exception $e) {
-            return response()->json(['success' => true, 'message' => $e->getMessage()]);
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
