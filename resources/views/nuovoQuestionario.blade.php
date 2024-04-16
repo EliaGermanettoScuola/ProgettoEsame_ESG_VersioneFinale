@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+    
     <style>
         
         .hidden-content {
@@ -18,30 +20,45 @@
                 @csrf
                 <input type="hidden" name="idQuestionario" value="{{$idQuestionnaires}}">
                 @if(isset($questions))
+                    @php
+                        $tipoPrimaDomandaSenzaRisposta = null;
+                        $idPrimaDomandaSenzaRisposta = null;
+
+                        if(isset($questions)) {
+                            foreach($questions as $tipo => $questionsPerTipo) {
+                                foreach($questionsPerTipo as $question) {
+                                    if(!isset($question['rispostaData'])) {
+                                        $tipoPrimaDomandaSenzaRisposta = $tipo;
+                                        $idPrimaDomandaSenzaRisposta = $question['idDomanda'];
+                                        break 2; // Interrompe entrambi i cicli foreach
+                                    }
+                                }
+                            }
+                        }
+                    @endphp
+                    <input type="hidden" name="tipoCorrente" value="{{$tipoPrimaDomandaSenzaRisposta}}">
                     @foreach($questions as $tipo => $questionsPerTipo)
                         <div id="tipo-{{$tipo}}" class="border p-3 mt-4 rounded ">
                             <input type="hidden" name="tipo" value="{{$tipo}}">
                             <h3>{{$tipo}}</h3>
                             <hr>
-                            <div class="{{$tipo != 1 ? 'hidden-content' : '' }}" name="content-{{$tipo}}">
+                            <div class="{{$tipo != $tipoPrimaDomandaSenzaRisposta ? 'hidden-content' : '' }}" name="content-{{$tipo}}">
                                 @if($tipo != 1)
-                                    <button type="button" class="btn btn-primary" name="precedente" onclick="precedenteTipo()">Precedente tipo</button>
+                                    <button type="button" class="btn btn-primary hidden-content" name="precedente-{{$tipo}}" onclick="precedenteTipo()">Precedente tipo</button>
                                 @endif
                                 @foreach($questionsPerTipo as $index => $question)
-                                    <form class="form-group" id="domanda-{{$question["idDomanda"]}}">
+                                    <form class="form-group ">
                                         <input type="hidden" name="idDomanda" value="{{$question["idDomanda"]}}">
                                         <label>{{$question['domanda']}}</label>
-                                        <div class="{{ $index != 0 ? 'hidden-content' : '' }}" name="form-response">
-                                            @if($index != 0)
-                                                <button type="button" class="btn btn-secondary Indietro" onclick="indietro()">Indietro</button>
-                                            @endif
+                                        <div name="form-response" class="{{ $question["idDomanda"] != $idPrimaDomandaSenzaRisposta ? 'hidden-content' : '' }}" id="domanda-{{$question["idDomanda"]}}"> 
+                                            <button type="button" class="btn btn-secondary Indietro" onclick="indietro()">Indietro</button>
                                             @foreach($question['risposte'] as $risposta)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="idRisposta" id="risposta-{{$risposta["idRisposta"]}}" value="{{$risposta["idRisposta"]}}">
-                                                <label class="form-check-label" for="risposta-{{$risposta["idRisposta"]}}">
-                                                    {{$risposta["risposta"]}}
-                                                </label>
-                                            </div>
+                                                <div class="form-check ">
+                                                    <input class="form-check-input" type="radio" name="idRisposta" id="risposta-{{$risposta["idRisposta"]}}" value="{{$risposta["idRisposta"]}}" {{ isset($question['rispostaData']) && $question['rispostaData'] == $risposta["idRisposta"] ? 'checked' : '' }} >
+                                                    <label class="form-check-label" for="risposta-{{$risposta["idRisposta"]}}">
+                                                        {{$risposta["risposta"]}}
+                                                    </label>
+                                                </div>
                                             @endforeach
                                             <button type="button" class="btn btn-primary Avanti" onclick="saveAnswer()" disabled>Avanti</button>
                                         </div>
@@ -62,16 +79,25 @@
 
 
     <script>
-        document.querySelectorAll('.form-check-input').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            var form = radio.closest('form');
-            if (form) {
-                var avantiButton = form.querySelector('.Avanti');
-                if (avantiButton) {
-                    avantiButton.disabled = false;
-                }
+        document.querySelectorAll('form').forEach(function(form) {
+            var avantiButton = form.querySelector('.Avanti');
+            if (avantiButton) {
+                var checkedRadio = form.querySelector('.form-check-input:checked');
+                avantiButton.disabled = !checkedRadio;
             }
         });
+
+        document.querySelectorAll('.form-check-input').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                var form = radio.closest('form');
+                if (form) {
+                    var avantiButton = form.querySelector('.Avanti');
+                    if (avantiButton) {
+                        var checkedRadio = form.querySelector('.form-check-input:checked');
+                        avantiButton.disabled = !checkedRadio;
+                    }
+                }
+            });
         });
     </script>
 @endsection

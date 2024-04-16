@@ -15,6 +15,7 @@ class QuestionsController extends Controller
     }
 
     function nuovoQuestionario() {
+        $userAnswers = null;
         $sessionController = new SessionController;
         $sessionRequest = new Request;
         $sessionRequest->replace(['type' => 'Users']);
@@ -25,16 +26,67 @@ class QuestionsController extends Controller
         $questionnairesController = new QuestionnairesController;
         $questionnairesRequest = new Request;
         $questionnairesRequest->replace(['idUtente' => $session->getData()->data->Users, 'stato' => '1']);
-        $questionnaire = $questionnairesController->createSurvey($questionnairesRequest);
-        if($questionnaire->getData()->success == false){
-            return view('error', ['error' => $questionnaire->getData()->error]);
+        
+        $questionnaires = $questionnairesController->getUserSurvey($questionnairesRequest);
+        if($questionnaires->getData()->success == false){
+            return view('error', ['error' => $questionnaires->getData()->message]);
+        }
+        foreach($questionnaires->getData()->data as $questionnaire){
+            if($questionnaire->stato == 1){
+                $userAnswers = $this->creaQuestionarioIniziato($questionnaire);
+                $idQuestionnaire = $questionnaire->idQuestionario;
+                break;
+            }
         }
         
+        if($userAnswers == null){
+            $questionnaire = $questionnairesController->createSurvey($questionnairesRequest);
+            $idQuestionnaire = $questionnaire->getData()->data;
+            if($questionnaire->getData()->success == false){
+                return view('error', ['error' => $questionnaire->getData()->error]);
+            }
+        }
+        
+        
         $questions = $this->getAllQuestions();
-        //dd($questions);
-        return view('nuovoQuestionario', ['questions' => $questions], ['idQuestionnaires' => $questionnaire->getData()->data]);
+
+        if($userAnswers != null){
+            foreach($questions as $questionTypeKey => $questionType){
+                foreach($questionType as $questionKey => $question){
+                    for($i = 0; $i < count($userAnswers); $i++){
+                        if($question['idDomanda'] == $userAnswers[$i]['idDomanda']){
+                            $questions[$questionTypeKey][$questionKey]['rispostaData'] = $userAnswers[$i]['idRispostaData'];
+                        }
+                    }
+                }
+            }
+        }
+        
+        return view('nuovoQuestionario', ['questions' => $questions], ['idQuestionnaires' => $idQuestionnaire]);
     }
     
+    function creaQuestionarioIniziato($questionnaire){
+        $questions = DB::table('answers_survey')
+        ->where('idQuestionario', $questionnaire->idQuestionario)
+        ->get();
+        $questionIds = $questions->pluck('idDomanda');
+        $answerIds = $questions->pluck('idRisposta');
+
+        $questions = DB::table('questions')
+            ->join('demands', 'questions.idDomanda', '=', 'demands.idDomanda')
+            ->join('answers', 'questions.idRisposta', '=', 'answers.idRisposta')
+            ->select('demands.Tipo', 'demands.Domanda', 'answers.Risposta', 'demands.idDomanda', 'answers.idRisposta')
+            ->whereIn('questions.idDomanda', $questionIds)
+            
+            ->get();
+        
+
+        $userAnswers = array_combine($questionIds->toArray(), $answerIds->toArray());
+        $userAnswers = collect($userAnswers)->map(function ($value, $key) {
+            return ['idDomanda' => $key, 'idRispostaData' => $value];
+        })->values()->all();
+        return $userAnswers;
+    }
     function mapQuestions($questions) {
         $groupedQuestions = $questions->sortBy('Tipo')->groupBy('Tipo');
     
@@ -53,6 +105,7 @@ class QuestionsController extends Controller
             })->values()->toArray();
         })->toArray();
     }
+
     
     function getAllQuestions() {
         $questions = DB::table('questions')
@@ -63,26 +116,6 @@ class QuestionsController extends Controller
     
         return $this->mapQuestions($questions);
     }
-    
-    function getQuestion($id) {
-        try {
-            $questions = DB::table('questions')
-            ->join('demands', 'questions.idDomanda', '=', 'demands.idDomanda')
-            ->join('answers', 'questions.idRisposta', '=', 'answers.idRisposta')
-            ->select('questions.idQuesito', 'demands.Domanda', 'answers.Risposta')
-            ->where('demands.idDomanda', $id)
-            ->get();
-            $question = mapQuestions($questions)->first();
-            
-            return response()->json(['success' => true, 'question' => $question]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => true, 'error' => $e->getMessage()]);
-        }
-    }
-
-    
-    
-    
     
     function deleteQuestion($id) {
         try {

@@ -25,6 +25,7 @@ class AnswerSurveyController extends Controller
                     'idDomanda' => $request->idDomanda,
                     'idRisposta' => $request->idRisposta,
                 ]);
+                //$answer = "ciao";
                 return response()->json(['success' => true, 'data' => $answer, 'message' => 'Risposta salvata con successo']);
             }
 

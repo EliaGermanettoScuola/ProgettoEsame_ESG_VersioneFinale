@@ -28,6 +28,15 @@
             flex: 1;
         }
 
+        .navBarColor{
+            background-color: #008079 !important;
+        }
+
+        /*
+            colore del font = 3c3c3b
+            
+        */
+
     </style>
 </head>
 <body>

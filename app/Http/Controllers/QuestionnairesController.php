@@ -31,7 +31,7 @@ class QuestionnairesController extends Controller
 
     public function getUserSurvey(Request $request){
         try{
-            $questionnaires = DB::table('questionnaires')->where('idUtente', $request->id)->get();
+            $questionnaires = DB::table('questionnaires')->where('idUtente', $request->idUtente)->get();
             return response()->json(['success' => true, 'data' => $questionnaires]);
         }catch(\Exception $e){
             return view('error', ['error' => $e->getMessage()]);
