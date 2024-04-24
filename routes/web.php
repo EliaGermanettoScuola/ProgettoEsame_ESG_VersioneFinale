@@ -30,6 +30,10 @@ Route::get('/error', function () {
     return view('error');
 })->name('error');
 
+Route::get('/chisiamo', function () {
+    return view('chisiamo');
+})->name('chisiamo');
+
 Route::get('/loginPage', function () {
     return view('login');
 })->name('loginPage');

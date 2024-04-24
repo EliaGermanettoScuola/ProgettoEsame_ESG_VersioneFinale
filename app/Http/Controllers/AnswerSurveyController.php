@@ -54,9 +54,12 @@ class AnswerSurveyController extends Controller
                 }
             }
 
+            
             $punteggiMax = $this->punteggioMassimo()->getData();
+            //dd($punteggiMax->data);
 
             $punteggiMaxTot = (($punteggioTipo1 + $punteggioTipo2 + $punteggioTipo3) / $punteggiMax->data->total_max_score) * 100;
+            //dd($punteggioTipo1,$punteggioTipo2,$punteggioTipo3,$punteggiMaxTot);
             //dd($punteggioTipo1, $punteggioTipo2, $punteggioTipo3, $punteggiMax->data->total_max_score, $punteggiMax->data->max_scores_per_type);
             foreach($punteggiMax->data->max_scores_per_type as $tipo => $max_score){
                 if($tipo == 1){
@@ -67,6 +70,8 @@ class AnswerSurveyController extends Controller
                     $punteggioTipo3 = ($punteggioTipo3 / $max_score) * 100;
                 }
             }
+
+            //dd($punteggioTipo1, $punteggioTipo2, $punteggioTipo3);
 
 
             DB::table('questionnaires')->where('idQuestionario', $Request->id)
