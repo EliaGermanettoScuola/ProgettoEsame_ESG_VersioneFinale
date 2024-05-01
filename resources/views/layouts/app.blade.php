@@ -23,29 +23,35 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0  d-flex justify-content-around w-100">
-                <li class="nav-item text-center text-uppercase">
-                    <a class="nav-link active text-white" aria-current="page" href="/home">Home</a>
-                </li>
-                <li class="nav-item text-center text-uppercase">
-                    <a class="nav-link text-white" href="/questionario">Questionario</a>
-                </li>
-                <li class="nav-item text-center text-uppercase">
-                    <a class="nav-link text-white" href="/chisiamo">Chi siamo</a>
-                </li>
-                @if(session()->has('Users'))
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0  d-flex justify-content-around w-100">
                     <li class="nav-item text-center text-uppercase">
-                        <form method="POST" action="/logout">
-                            @csrf
-                            <button type="submit" class="nav-link text-white text-uppercase">Logout</button>
-                        </form>
+                        <a class="nav-link active text-white" aria-current="page" href="/home">Home</a>
                     </li>
-                @else
                     <li class="nav-item text-center text-uppercase">
-                        <a class="nav-link text-white" href="/loginPage">Login</a>
+                        <a class="nav-link text-white" href="/chisiamo">Chi siamo</a>
                     </li>
-                @endif
-            </ul>
+                    <li class="nav-item text-center text-uppercase">
+                        <a class="nav-link text-white" href="/servizi">Servizi</a>
+                    </li>
+                    <li class="nav-item text-center text-uppercase">
+                        <a class="nav-link text-white" href="/questionario">Questionario</a>
+                    </li>
+                    
+                    @if(session()->has('Users'))
+                        <li class="nav-item text-center text-uppercase">
+                            <div class="d-flex justify-content-center">
+                                <form method="POST" action="/logout">
+                                    @csrf
+                                    <button type="submit" class="nav-link text-white text-uppercase">Logout</button>
+                                </form>
+                            </div>
+                        </li>
+                    @else
+                        <li class="nav-item text-center text-uppercase">
+                            <a class="nav-link text-white" href="/loginPage">Login</a>
+                        </li>
+                    @endif
+                </ul>
             </div>
         </div>
     </nav>

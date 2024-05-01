@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AnswerSurveyController extends Controller
 {
@@ -12,6 +13,10 @@ class AnswerSurveyController extends Controller
             $answer = DB::table('answers_survey')->select('idQuestionario', 'idDomanda', 'idRisposta')
             ->where('idQuestionario', $request->idQuestionario)
             ->where('idDomanda', $request->idDomanda)->get();
+
+            //aggioranre con data odierna
+            DB::table('questionnaires')->where('idQuestionario', $request->idQuestionario)
+            ->update(['dataUltimoAggiornamento' => Carbon::now()]);
 
             if(count($answer) > 0){
                 $answer = DB::table('answers_survey')->where('idQuestionario', $request->idQuestionario)

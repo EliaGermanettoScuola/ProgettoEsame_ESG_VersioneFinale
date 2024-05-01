@@ -73,7 +73,7 @@
                     <div class="contenitore text-center">
                         <div id="arrotondata" class=" text-center">
                             <div class="front ">
-                            <p class="text-white py-5">"L'ESG integration è un <br> approccio che utilizza le <br>
+                            <p class="text-white py-5 ">"L'ESG integration è un <br> approccio che utilizza le <br>
                             informazioni e le <br> valutazioni ESG senza <br> dare vita a una vera e <br> proprieta strategica ESG"</p>
                             </div>
                         </div>

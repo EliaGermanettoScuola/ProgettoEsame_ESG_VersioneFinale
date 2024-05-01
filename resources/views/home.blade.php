@@ -21,9 +21,11 @@
                 
                 <div class="col-md-6" >
                     <div id="primoParagrafoHome" class="py-5">
-                        <p class="text-1 mb-5">esg checkup è un servizio di consulenza che ti permette di valutare la sostenibilità della tua azienda. Attraverso un questionario, esg checkup ti aiuta a capire quanto la tua azienda sia sostenibile e ti fornisce suggerimenti per migliorare.</p>
-                        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum esse laboriosam nemo, aliquid eum possimus quod? Distinctio vel similique sed ut vero. Rerum, vero expedita dolorum possimus accusamus ullam minus!</p>
-                        <p class="mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ducimus asperiores explicabo autem! Qui excepturi architecto cumque earum alias mollitia, minus voluptates debitis, perferendis omnis error, voluptatum numquam? Aut, obcaecati!</p>
+                        <p class="text-1 mb-5">L'acronimo ESG racchiude tre pilastri fondamentali per valutare la condotta di un'azienda: <strong>E</strong> per l'impatto <strong>ambientale</strong>, <strong>S</strong> per l'aspetto <strong>sociale</strong> e <strong>G</strong> per la <strong>governance</strong>.</p>
+                        <p class="mb-5">Questi fattori, considerati sempre più cruciali dagli investitori e dai consumatori, misurano l'impegno di un'impresa verso la sostenibilità a lungo termine.</p>
+                        <p class="mb-1">In un mondo alle prese con sfide come il cambiamento climatico e le disuguaglianze sociali, le aziende che dimostrano un reale impegno sui principi ESG non solo accrescono la loro reputazione, ma ottengono anche un vantaggio competitivo e aprono nuove opportunità di business.
+                        Integrare i criteri ESG nella propria strategia aziendale significa assumere la responsabilità del proprio operato e contribuire a costruire un futuro più equo e sostenibile per tutti.
+                        </p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -65,23 +67,29 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <div class="contenitore">
+                    <div class="contenitore text-center">
                         <div class="card text-center">
-                            <div class="front ">
+                            <div class="front">
                             <p class="text-white py-5">"L'ESG integration è un <br> approccio che utilizza le <br>
-                            informazioni e le <br> valutazioni ESG senza <br> dare vita a una vera e <br> proprieta strategica ESG"</p>
+                            informazioni e le <br> valutazioni ESG senza <br> dare vita a una vera e <br> proprieta strategica ESG" <br>
+                            <span id="dots">...</span><span id="more">Lorem ipsum dolor sit amet consectetur, adipisicing elit. In dolores recusandae provident non maxime et 
+                            deleniti eum fugiat nesciunt amet. Temporibus delectus repudiandae quaerat explicabo quae facere vel modi. Molestias.</p>
                             </div>
                             <div class="back">
                             <p class="back-heading">Back card</p>
                             <p>Follow Me For More</p>
                             </div>
                         </div>
+                        <br>
+                        <br>
+                        <button onclick="readMore()" id="myBtn" class="btn btn-primary">Read more</button>
                     </div>
+                    
                 </div>
             </div>
         </div>
 
-        <div class="container text-center pt-5" id="testoLibero">
+      <!--  <div class="container text-center pt-5" id="testoLibero">
             <div class="pt-5">
                 <p class="text-1 pt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam, placeat nostrum. Quibusdam numquam magnam hic,
                      magni iusto consequatur
@@ -101,7 +109,7 @@
             </div>
 
 
-        </div>
+        </div>-->
 
         
         

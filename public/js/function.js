@@ -92,20 +92,20 @@ function indietro(){
     var tipoCorrente = document.querySelector('[name="tipoCorrente"]').value;
     var prossimoTipo = document.querySelector('[name="prossimo-' + tipoCorrente + '"]');
     console.log('prevForm:', prevForm)
-    if (prevForm) {
-        if(prevForm.getAttribute('name') == "precedente-" + tipoCorrente + ""){
-            prevForm.classList.remove('hidden-content');
-        }else{
-            var prevFormResponse = prevForm.querySelector('[name="form-response"]');
-            console.log('prevFormResponse:', prevFormResponse)
-            prevFormResponse.classList.remove('hidden-content');
+    if(prevForm == null){
+        var prevTipo = document.querySelector('[name="precedente-' + parseInt(tipoCorrente) + '"]');
+        console.log('prevTipo:', prevTipo)
+        if(prevTipo != null)
+         prevTipo.classList.remove('hidden-content');
+    }else{
+        var prevFormResponse = prevForm.querySelector('[name="form-response"]');
+        console.log('prevFormResponse:', prevFormResponse)
+        prevFormResponse.classList.remove('hidden-content');
 
-            var formResponse = form.querySelector('[name="form-response"]');
-            formResponse.classList.add('hidden-content');
+        var formResponse = form.querySelector('[name="form-response"]');
+        formResponse.classList.add('hidden-content');
 
-            prossimoTipo.classList.add('hidden-content');
-        }
-        
+        prossimoTipo.classList.add('hidden-content');
     }
 }
 
@@ -114,9 +114,13 @@ function prossimoTipo(){
     var tipo = document.querySelector('[name="tipoCorrente"]').value;
     var courrentTipo = document.querySelector('[name="content-' + tipo + '"]');
     var nextTipo = document.querySelector('[name="content-' + (parseInt(tipo) + 1) + '"]');
+    var btnNextTipo = document.querySelector('[name="prossimo-' + tipo + '"]');
+    console.log('courrentTipo:', courrentTipo)
+    console.log('nextTipo:', nextTipo)
     if (nextTipo) {
         courrentTipo.classList.add('hidden-content');
         nextTipo.classList.remove('hidden-content');
+        btnNextTipo.classList.add('hidden-content');
         document.querySelector('[name="tipoCorrente"]').value = (parseInt(tipo) + 1).toString();
         //quando vai al prossimo tipo prendi il primo form di quel tipo
         var formResponse = nextTipo.querySelector('[name="form-response"]');
@@ -130,12 +134,14 @@ function precedenteTipo(){
     console.log('tipo:', tipo)
     var courrentTipo = document.querySelector('[name="content-' + tipo + '"]');
     var prevTipo = document.querySelector('[name="content-' + (parseInt(tipo) - 1) + '"]');
+    var btnPrevTipo = document.querySelector('[name="precedente-' + parseInt(tipo) + '"]');
     console.log('courrentTipo:', courrentTipo)
     console.log('prevTipo:', prevTipo)
 
     if (prevTipo) {
         courrentTipo.classList.add('hidden-content');
         prevTipo.classList.remove('hidden-content');
+        btnPrevTipo.classList.add('hidden-content');
         document.querySelector('[name="tipoCorrente"]').value = (parseInt(tipo) - 1).toString();
         //quando vai al prossimo tipo prendi l'ultimo elemento del form di quel tipo
         var formResponses = prevTipo.querySelectorAll('[name="form-response"]');
@@ -144,6 +150,25 @@ function precedenteTipo(){
 
     } 
 }
+
+function readMore() {
+    var dots = document.getElementById("dots");
+    var moreText = document.getElementById("more");
+    var btnText = document.getElementById("myBtn");
+    console.log("entra")
+  
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Read more";
+      moreText.style.display = "none";
+      console.log('di meno');
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Read less";
+      moreText.style.display = "inline";
+        console.log('di piu');
+    }
+  }
 
 
 

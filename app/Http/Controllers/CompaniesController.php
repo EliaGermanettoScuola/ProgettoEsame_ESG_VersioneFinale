@@ -78,7 +78,7 @@ class CompaniesController extends Controller
             $sessionRequest = new Request;
             $sessionRequest->replace(['type' => 'Users', 'id' => $utente->idUtente]);
             $sessionController->CreateSession($sessionRequest);
-            return view('home', ['message' => 'Login effettuato con successo', 'idUtente' => $utente->idUtente]);
+            return redirect()->route('questionario');
         } else {
             return view('error', ['error' => 'Credenziali non valide']);
         }

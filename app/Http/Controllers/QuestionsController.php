@@ -11,7 +11,25 @@ use App\Http\Controllers\QuestionnairesController;
 class QuestionsController extends Controller
 {
     function questionario() {
-        return view('questionario');
+        if(!session()->has('Users')){
+            return view('login', ['error' => 'Devi effettuare il login per accedere a i questionari']);
+        }else{
+            $sessionController = new SessionController;
+            $sessionRequest = new Request;
+            $sessionRequest->replace(['type' => 'Users']);
+            $session = $sessionController->getSession($sessionRequest);
+            if($session->getData()->success == false){
+                return view('error', ['error' => $session->getData()->message]);
+            }
+            $questionnairesController = new QuestionnairesController;
+            $questionnairesRequest = new Request;
+            $questionnairesRequest->replace(['idUtente' => $session->getData()->data->Users]);
+            $questionnaires = $questionnairesController->getUserSurvey($questionnairesRequest);
+            if($questionnaires->getData()->success == false){
+                return view('error', ['error' => $questionnaires->getData()->message]);
+            }
+            return view('questionario', ['questionnaires' => $questionnaires->getData()->data]);
+        }
     }
 
     function nuovoQuestionario() {
@@ -21,7 +39,7 @@ class QuestionsController extends Controller
         $sessionRequest->replace(['type' => 'Users']);
         $session = $sessionController->getSession($sessionRequest);
         if($session->getData()->success == false){
-            return view('error', ['error' => $session->getData()->message]);
+            return view('login', ['error' => "Effettua il login per accedere a questa sezione"]);
         }
         $questionnairesController = new QuestionnairesController;
         $questionnairesRequest = new Request;
@@ -50,7 +68,7 @@ class QuestionsController extends Controller
         
         $questions = $this->getAllQuestions();
 
-        if($userAnswers != null){
+        if($userAnswers != null && $userAnswers != "1"){
             foreach($questions as $questionTypeKey => $questionType){
                 foreach($questionType as $questionKey => $question){
                     for($i = 0; $i < count($userAnswers); $i++){
@@ -85,6 +103,10 @@ class QuestionsController extends Controller
         $userAnswers = collect($userAnswers)->map(function ($value, $key) {
             return ['idDomanda' => $key, 'idRispostaData' => $value];
         })->values()->all();
+
+        if($userAnswers == null)
+            $userAnswers = "1";
+
         return $userAnswers;
     }
     function mapQuestions($questions) {

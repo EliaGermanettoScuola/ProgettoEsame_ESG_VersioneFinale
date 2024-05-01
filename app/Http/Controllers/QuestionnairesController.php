@@ -50,7 +50,8 @@ class QuestionnairesController extends Controller
     public function destroySurvey(Request $request){
         try{
             $questionnaires = DB::table('questionnaires')->where('idQuestionario', $request->id)->delete();
-            return response()->json(['success' => true, 'data' => $questionnaires, 'message' => 'Questionario eliminato con successo']);
+            return redirect()->route('questionario');
+            //return response()->json(['success' => true, 'data' => $questionnaires, 'message' => 'Questionario eliminato con successo']);
         }catch(\Exception $e){
             return view('error', ['error' => $e->getMessage()]);
         }

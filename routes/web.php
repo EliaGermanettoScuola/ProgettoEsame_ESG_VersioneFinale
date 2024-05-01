@@ -42,6 +42,10 @@ Route::get('/PaginaRegistrazione', function () {
     return view('registrazione');
 })->name('PaginaRegistrazione');
 
+Route::get('/servizi', function () {
+    return view('servizi');
+})->name('servizi');
+
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
@@ -83,7 +87,7 @@ Route::get('/getUserSurvey/{id}', [QuestionnairesController::class, 'getUserSurv
 
 Route::get('/getSurvey/{id}', [QuestionnairesController::class, 'getSurvey'])->name('getSurvey');
 
-Route::delete('/destroySurvey/{id}', [QuestionnairesController::class, 'destroySurvey'])->name('destroySurvey');
+Route::get('/destroySurvey/{id}', [QuestionnairesController::class, 'destroySurvey'])->name('destroySurvey');
 #endregion
 
 #region answerSurvey
