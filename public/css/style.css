@@ -64,6 +64,11 @@ h3 ,.h3{
     font-family: extraBoldItalic, sans-serif !important;
 }
 
+h2, .h2{
+    font-family: extraBoldItalic, sans-serif !important;
+    
+}
+
 .text-1{
     color: #008079;
 }

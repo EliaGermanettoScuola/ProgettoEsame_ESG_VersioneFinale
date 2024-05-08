@@ -39,80 +39,60 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-12 col-lg-4 ">
-                    <div class="contenitore">
+                    <div class="contenitore text-center">
                         <div class="card text-center">
-                            <div class="front">
-                            <p class="text-white py-5">"L'ESG integration è un <br> approccio che utilizza le <br>
-                            informazioni e le <br> valutazioni ESG senza <br> dare vita a una vera e <br> proprieta strategica ESG"</p>
-                            </div>
-                            <div class="back">
-                            <p class="back-heading">Back card</p>
-                            <p>Follow Me For More</p>
+                            <div class="front px-2">
+                                <h3>
+                                    Che cosa è ESG Check Up e perchè:
+                                </h3>
+                                <p class="text-white px-2">
+ESG Check Up                        è uno strumento gratuito di autovalutazione per ottimizzare prestazioni aziendali ambientali, sociali e di governance.
+                                </p>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-4">
-                    <div class="contenitore">
-                        <div class="card text-center">
-                            <div class="front">
-                            <p class="text-white py-5">"L'ESG integration è un <br> approccio che utilizza le <br>
-                            informazioni e le <br> valutazioni ESG senza <br> dare vita a una vera e <br> proprieta strategica ESG"</p>
-                            </div>
-                            <div class="back">
-                            <p class="back-heading">Back card</p>
-                            <p>Follow Me For More</p>
-                            </div>
-                        </div>
+                        <br>
+                        <br>
+                        <a href="/servizi1" class="btn color-esg">Leggi di +</a>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="contenitore text-center">
                         <div class="card text-center">
-                            <div class="front">
-                            <p class="text-white py-5">"L'ESG integration è un <br> approccio che utilizza le <br>
-                            informazioni e le <br> valutazioni ESG senza <br> dare vita a una vera e <br> proprieta strategica ESG" <br>
-                            <span id="dots">...</span><span id="more">Lorem ipsum dolor sit amet consectetur, adipisicing elit. In dolores recusandae provident non maxime et 
-                            deleniti eum fugiat nesciunt amet. Temporibus delectus repudiandae quaerat explicabo quae facere vel modi. Molestias.</p>
+                            <div class="front px-2">
+                                <h3>
+                                    Come funziona:
+                                </h3>
+                                <p class="text-white px-2">
+ESG Check Up                       ESG Check Up utilizza standard internazionali per valutare in dettaglio le prestazioni ESG aziendali, fornendo un punteggio di rischio, valutazioni specifiche e raccomandazioni per migliorare la sostenibilità e la resilienza.
+                                </p>
                             </div>
-                            <div class="back">
-                            <p class="back-heading">Back card</p>
-                            <p>Follow Me For More</p>
+                            
+                        </div>
+                        <br>
+                        <br>
+                        <a href="/servizi2" class="btn color-esg">Leggi di +</a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="contenitore text-center">
+                        <div class="card text-center">
+                            <div class="front px-2">
+                                <h3>
+                                    Come utilizzare i risultati dell’ESG
+                                </h3>
+                                <p class="text-white px-2">
+ESG Check Up                       I risultati di ESG Checkup migliorano la gestione aziendale, mappano rischi, assicurano conformità normativa, potenziano la comunicazione e supportano lo sviluppo di strategie sostenibili.
+                                </p>
                             </div>
                         </div>
                         <br>
                         <br>
-                        <button onclick="readMore()" id="myBtn" class="btn btn-primary">Read more</button>
+                        <a href="/servizi3" class="btn color-esg">Leggi di +</a>
                     </div>
                     
                 </div>
             </div>
         </div>
-
-      <!--  <div class="container text-center pt-5" id="testoLibero">
-            <div class="pt-5">
-                <p class="text-1 pt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam, placeat nostrum. Quibusdam numquam magnam hic,
-                     magni iusto consequatur
-                     architecto quos sapiente. Quae, impedit delectus. Deserunt quo veniam laudantium nobis repellat?</p>
-            </div>
-
-            <div class="pt-4">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam, placeat nostrum. Quibusdam numquam magnam hic,
-                     magni iusto consequatur
-                     architecto quos sapiente. Quae, impedit delectus. Deserunt quo veniam laudantium nobis repellat?</p>
-            </div>
-
-            <div class="pt-2 pb-5">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam, placeat nostrum. Quibusdam numquam magnam hic,
-                     magni iusto consequatur
-                     architecto quos sapiente. Quae, impedit delectus. Deserunt quo veniam laudantium nobis repellat?</p>
-            </div>
-
-
-        </div>-->
-
-        
-        
     </div>
 
     <div class="text-center pt-5">

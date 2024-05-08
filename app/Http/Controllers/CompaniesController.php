@@ -12,6 +12,23 @@ class CompaniesController extends Controller
 {
     function registrazione(Request $request){
         header('Access-Control-Allow-Origin: *');
+        $messages = [
+            'required' => 'Il campo :attribute è obbligatorio.',
+            'email' => 'Il campo :attribute deve essere un indirizzo email valido.',
+            'unique' => 'Il :attribute è già stato preso.',
+            'min' => [
+                'string' => 'Il campo :attribute deve contenere almeno :min caratteri.',
+                'numeric' => 'Il campo :attribute deve essere almeno :min.',
+            ],
+            'same' => 'Il campo :attribute e :other devono corrispondere.',
+            'size' => [
+                'string' => 'Il campo :attribute deve contenere esattamente :size caratteri.',
+                'numeric' => 'Il campo :attribute deve essere :size.',
+            ],
+            'max' => [
+                'string' => 'Il campo :attribute non può contenere più di :max caratteri.',
+            ],
+        ];
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
@@ -25,10 +42,11 @@ class CompaniesController extends Controller
             'cap' => 'required|string|max:10',
             'provincia' => 'required|string|max:255',
             'telefono' => 'required|string|max:20',
-        ]);
+        ], $messages);
         
+
         if ($validator->fails()) {
-            return view('error', ['error' => $validator->errors()->first()]);
+            return back()->withErrors($validator)->withInput();
         }
 
         DB::beginTransaction();
@@ -62,13 +80,18 @@ class CompaniesController extends Controller
 
     function login(Request $request){
 
+        $messages = [
+            'required' => 'Il campo :attribute è obbligatorio.',
+            'email' => 'Il campo :attribute deve essere un indirizzo email valido.',
+        ];
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required'
-        ]);
+        ],$messages);
 
         if ($validator->fails()) {
-            return view('error', ['error' => $validator->errors()->first()]);
+            return back()->withErrors($validator)->withInput();
         }
 
         $utente = DB::table('users')->where('email', $request->email)->first();
@@ -80,7 +103,7 @@ class CompaniesController extends Controller
             $sessionController->CreateSession($sessionRequest);
             return redirect()->route('questionario');
         } else {
-            return view('error', ['error' => 'Credenziali non valide']);
+            return view('login', ['error' => 'Credenziali non valide']);
         }
     }
 
@@ -91,11 +114,6 @@ class CompaniesController extends Controller
         $sessionController->destroySession($sessionRequest);
         
         return view('home', ['message' => 'Logout effettuato con successo']);
-        /*if($request->session()->has('Users')){
-            
-        }else{
-            return view('error', ['error' => 'Non sei loggato']);
-        }*/
         
     }
 

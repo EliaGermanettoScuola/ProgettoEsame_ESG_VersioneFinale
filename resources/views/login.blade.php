@@ -18,7 +18,16 @@
             @endif
             <form id="formLogin" action="{{route('login')}}" method="POST" class="form">
                     @csrf
-                    <input type="email" class="form-control input" id="email" name="email" required value="e.germanetto@vallauri.edu" placeholder="Email">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <input type="email" class="form-control input" id="email" name="email" required value="{{old('email')}}" placeholder="Email">
                     <input type="password" class="form-control input" id="password" name="password" required placeholder="Password">
                     <p class="page-link">
                     <span class="page-link-label">Password dimenticata?</span>

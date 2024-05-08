@@ -46,6 +46,19 @@ Route::get('/servizi', function () {
     return view('servizi');
 })->name('servizi');
 
+Route::get('/servizi1', function () {
+    return redirect('/servizi#paragrafo-1');
+});
+
+Route::get('/servizi2', function () {
+    return redirect('/servizi#paragrafo-2');
+});
+
+Route::get('/servizi3', function () {
+    return redirect('/servizi#paragrafo-3');
+});
+
+
 Route::get('/get-csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
@@ -55,7 +68,7 @@ Route::post('/registrazione', [CompaniesController::class, 'registrazione'])->na
 
 Route::post('/login', [CompaniesController::class, 'login'])->name('login');
 
-route::post('/logout', [CompaniesController::class, 'logout'])->name('logout');
+route::get('/logout', [CompaniesController::class, 'logout'])->name('logout');
 #endregion
 
 #region session

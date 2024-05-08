@@ -41,6 +41,20 @@ class AnswerSurveyController extends Controller
 
     public function calcoloFinale(request $Request){
         try{
+
+            try 
+            {
+                $sessionQuestionario = DB::table('questionnaires')->select('idUtente')->where('idQuestionario', $Request->id)->first();
+                if($sessionQuestionario->idUtente != session('Users')){
+                    return view('login', ['error' => 'Non hai i permessi per accedere a questa pagina']);
+                }
+            } catch (\Exception $e) {
+                return view('login', ['error' => 'Non hai i permessi per accedere a questa pagina']);
+            }
+            
+
+
+
             $answers = DB::table('answers_survey')->select('idQuestionario', 'idDomanda', 'idRisposta')
             ->where('idQuestionario', $Request->id)->get();
 

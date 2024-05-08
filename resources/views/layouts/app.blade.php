@@ -40,10 +40,7 @@
                     @if(session()->has('Users'))
                         <li class="nav-item text-center text-uppercase">
                             <div class="d-flex justify-content-center">
-                                <form method="POST" action="/logout">
-                                    @csrf
-                                    <button type="submit" class="nav-link text-white text-uppercase">Logout</button>
-                                </form>
+                                <a href="/logout" class="nav-link text-white text-uppercase">Logout</a>
                             </div>
                         </li>
                     @else
